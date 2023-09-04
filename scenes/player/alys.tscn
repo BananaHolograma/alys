@@ -1,10 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://cxi3ivpubf42w"]
+[gd_scene load_steps=23 format=3 uid="uid://cxi3ivpubf42w"]
 
 [ext_resource type="Texture2D" uid="uid://cc70w3w0x68qf" path="res://assets/character_animations/IdleR_strip4.png" id="1_0x2nu"]
 [ext_resource type="Script" path="res://scenes/player/alys.gd" id="1_kghtd"]
 [ext_resource type="Script" path="res://addons/2d_essentials/movement/motion/platformer_movement_component.gd" id="2_iq801"]
 [ext_resource type="Script" path="res://addons/2d_essentials/patterns/finite_state_machine/finite_state_machine.gd" id="3_xosfn"]
+[ext_resource type="Texture2D" uid="uid://boewo46r0oqvg" path="res://assets/character_animations/WalkR_strip8.png" id="3_y23en"]
 [ext_resource type="Script" path="res://scenes/player/state_machine/motion/ground/idle.gd" id="4_qjqae"]
+[ext_resource type="Script" path="res://scenes/player/state_machine/motion/ground/run.gd" id="6_qckvf"]
+[ext_resource type="Script" path="res://scenes/player/debug_display.gd" id="8_3kacr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2r554"]
 size = Vector2(12, 14)
@@ -25,6 +28,38 @@ region = Rect2(64, 0, 32, 32)
 atlas = ExtResource("1_0x2nu")
 region = Rect2(96, 0, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_tldhq"]
+atlas = ExtResource("3_y23en")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qq0js"]
+atlas = ExtResource("3_y23en")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_713l7"]
+atlas = ExtResource("3_y23en")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cwum7"]
+atlas = ExtResource("3_y23en")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wnwe0"]
+atlas = ExtResource("3_y23en")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pvefn"]
+atlas = ExtResource("3_y23en")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_srr2w"]
+atlas = ExtResource("3_y23en")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5ugk"]
+atlas = ExtResource("3_y23en")
+region = Rect2(224, 0, 32, 32)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_oixa1"]
 animations = [{
 "frames": [{
@@ -43,10 +78,40 @@ animations = [{
 "loop": true,
 "name": &"idle",
 "speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tldhq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qq0js")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_713l7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cwum7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wnwe0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pvefn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_srr2w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j5ugk")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
 }]
 
 [node name="Alys" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_kghtd")
+metadata/_edit_vertical_guides_ = [-203.0]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -44)
@@ -59,6 +124,7 @@ shape = SubResource("RectangleShape2D_2r554")
 position = Vector2(0, -6)
 sprite_frames = SubResource("SpriteFrames_oixa1")
 animation = &"idle"
+frame_progress = 0.0130629
 offset = Vector2(0, -2)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -73,8 +139,7 @@ allowed_jumps = 2
 coyote_jump_time_window = 0.1
 wall_jump_enabled = true
 MAX_SPEED = 110.0
-ACCELERATION = 800.0
-FRICTION = 1000.0
+FRICTION = 800.0
 DASH_SPEED_MULTIPLIER = 1.75
 
 [node name="GodotEssentialsFiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
@@ -85,3 +150,136 @@ current_state = NodePath("Ground/Idle")
 
 [node name="Idle" type="Node" parent="GodotEssentialsFiniteStateMachine/Ground"]
 script = ExtResource("4_qjqae")
+
+[node name="Run" type="Node" parent="GodotEssentialsFiniteStateMachine/Ground"]
+script = ExtResource("6_qckvf")
+
+[node name="DebugDisplay" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("8_3kacr")
+
+[node name="CurrentState" type="Label" parent="DebugDisplay"]
+layout_mode = 0
+offset_left = -19.0
+offset_top = -37.0
+offset_right = 21.0
+offset_bottom = -14.0
+theme_override_font_sizes/font_size = 8
+text = "State"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="JumpParametersContainer" type="VBoxContainer" parent="DebugDisplay"]
+layout_mode = 0
+offset_left = -155.0
+offset_top = -129.0
+offset_right = -115.0
+offset_bottom = -89.0
+theme_override_constants/separation = -3
+
+[node name="JumpHeight" type="Label" parent="DebugDisplay/JumpParametersContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 4
+
+[node name="JumpVelocity" type="Label" parent="DebugDisplay/JumpParametersContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 4
+
+[node name="JumpGravity" type="Label" parent="DebugDisplay/JumpParametersContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 4
+
+[node name="FallGravity" type="Label" parent="DebugDisplay/JumpParametersContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 4
+
+[node name="SpeedParametersContainer" type="VBoxContainer" parent="DebugDisplay"]
+layout_mode = 0
+offset_left = -157.0
+offset_top = -97.0
+offset_right = -117.0
+offset_bottom = -57.0
+theme_override_constants/separation = -3
+
+[node name="Max speed" type="Label" parent="DebugDisplay/SpeedParametersContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 4
+
+[node name="Acceleration" type="Label" parent="DebugDisplay/SpeedParametersContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 4
+
+[node name="Friction" type="Label" parent="DebugDisplay/SpeedParametersContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 4
+
+[node name="Maximun fall velocity" type="Label" parent="DebugDisplay/SpeedParametersContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 4
+
+[node name="Actual velocity" type="Label" parent="DebugDisplay/SpeedParametersContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 4
+
+[node name="JumpDashQueuesContainer" type="VBoxContainer" parent="DebugDisplay"]
+layout_mode = 0
+offset_left = -156.0
+offset_top = -63.0
+offset_right = -116.0
+offset_bottom = -23.0
+theme_override_constants/separation = -3
+
+[node name="DashQueue" type="Label" parent="DebugDisplay/JumpDashQueuesContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 4
+
+[node name="JumpQueue" type="Label" parent="DebugDisplay/JumpDashQueuesContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 4
+
+[node name="ActiveStatusesContainer" type="VBoxContainer" parent="DebugDisplay"]
+layout_mode = 0
+offset_left = -156.0
+offset_top = -46.0
+offset_right = -116.0
+offset_bottom = -6.0
+theme_override_constants/separation = -3
+
+[node name="GravityEnabled" type="Label" parent="DebugDisplay/ActiveStatusesContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 4
+
+[node name="InvertedGravity" type="Label" parent="DebugDisplay/ActiveStatusesContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 4
+
+[node name="IsWallClimbing" type="Label" parent="DebugDisplay/ActiveStatusesContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 4
+
+[node name="IsWallSliding" type="Label" parent="DebugDisplay/ActiveStatusesContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 4
+
+[node name="IsDashing" type="Label" parent="DebugDisplay/ActiveStatusesContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 4
