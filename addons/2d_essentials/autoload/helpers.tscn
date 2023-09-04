@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://j3yp2g6t723e"]
+
+[ext_resource type="Script" path="res://addons/2d_essentials/autoload/helpers.gd" id="1_cdxr3"]
+
+[node name="Helpers" type="Node"]
+script = ExtResource("1_cdxr3")

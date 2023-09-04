@@ -1,0 +1,87 @@
+[gd_scene load_steps=12 format=3 uid="uid://cxi3ivpubf42w"]
+
+[ext_resource type="Texture2D" uid="uid://cc70w3w0x68qf" path="res://assets/character_animations/IdleR_strip4.png" id="1_0x2nu"]
+[ext_resource type="Script" path="res://scenes/player/alys.gd" id="1_kghtd"]
+[ext_resource type="Script" path="res://addons/2d_essentials/movement/motion/platformer_movement_component.gd" id="2_iq801"]
+[ext_resource type="Script" path="res://addons/2d_essentials/patterns/finite_state_machine/finite_state_machine.gd" id="3_xosfn"]
+[ext_resource type="Script" path="res://scenes/player/state_machine/motion/ground/idle.gd" id="4_qjqae"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2r554"]
+size = Vector2(12, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4jbw4"]
+atlas = ExtResource("1_0x2nu")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u6oaf"]
+atlas = ExtResource("1_0x2nu")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8y2fv"]
+atlas = ExtResource("1_0x2nu")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ovcx2"]
+atlas = ExtResource("1_0x2nu")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oixa1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4jbw4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u6oaf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8y2fv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ovcx2")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}]
+
+[node name="Alys" type="CharacterBody2D" groups=["player"]]
+script = ExtResource("1_kghtd")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -44)
+
+[node name="BodyCollisionShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_2r554")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -6)
+sprite_frames = SubResource("SpriteFrames_oixa1")
+animation = &"idle"
+offset = Vector2(0, -2)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="GodotEssentialsPlatformerMovementComponent" type="Node2D" parent="."]
+script = ExtResource("2_iq801")
+jump_height = 50.0
+jump_time_to_peak = 0.3
+jump_time_to_fall = 0.25
+jump_threshold = 150.0
+allowed_jumps = 2
+coyote_jump_time_window = 0.1
+wall_jump_enabled = true
+MAX_SPEED = 110.0
+ACCELERATION = 800.0
+FRICTION = 1000.0
+DASH_SPEED_MULTIPLIER = 1.75
+
+[node name="GodotEssentialsFiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("3_xosfn")
+current_state = NodePath("Ground/Idle")
+
+[node name="Ground" type="Node" parent="GodotEssentialsFiniteStateMachine"]
+
+[node name="Idle" type="Node" parent="GodotEssentialsFiniteStateMachine/Ground"]
+script = ExtResource("4_qjqae")
