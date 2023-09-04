@@ -28,18 +28,20 @@ func physics_update(delta):
 			godot_essentials_platformer_movement.decelerate_horizontally(delta)
 	else:
 		godot_essentials_platformer_movement.accelerate_horizontally(horizontal_direction, delta)
-		
-		match(horizontal_direction):
-			Vector2.RIGHT:
-				running_dust.gravity = Vector2(-running_dust.gravity.x, running_dust.gravity.y)
-			Vector2.LEFT:
-				running_dust.gravity =  Vector2(abs(running_dust.gravity.x), running_dust.gravity.y)
-		
-		running_dust.direction = horizontal_direction
-	
+		emit_dust_particles(horizontal_direction)
 	
 	if Input.is_action_just_pressed("jump"):
 		state_finished.emit("Jump")
 		return
 		
 	godot_essentials_platformer_movement.move()
+
+
+func emit_dust_particles(horizontal_direction: Vector2):
+	match(horizontal_direction):
+		Vector2.RIGHT:
+			running_dust.gravity = Vector2(-running_dust.gravity.x, running_dust.gravity.y)
+		Vector2.LEFT:
+			running_dust.gravity =  Vector2(abs(running_dust.gravity.x), running_dust.gravity.y)
+	
+	running_dust.direction = horizontal_direction

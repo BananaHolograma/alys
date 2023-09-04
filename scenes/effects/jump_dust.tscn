@@ -1,0 +1,390 @@
+[gd_scene load_steps=26 format=3 uid="uid://cpkng0e5h48c7"]
+
+[ext_resource type="Script" path="res://scenes/effects/jump_dust.gd" id="1_adjg1"]
+[ext_resource type="Texture2D" uid="uid://bnvxpg5pvv4p" path="res://assets/effects/dust/smoke_dust_2.png" id="2_rxn1j"]
+[ext_resource type="Texture2D" uid="uid://b071hq41ruv8j" path="res://assets/effects/dust/jump_dust.png" id="3_55vve"]
+[ext_resource type="Texture2D" uid="uid://b47x1w837bdqq" path="res://assets/effects/dust/mini_smoke.png" id="3_ncjly"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s2s2q"]
+atlas = ExtResource("3_55vve")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o10xt"]
+atlas = ExtResource("3_55vve")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dty7w"]
+atlas = ExtResource("3_55vve")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0kiot"]
+atlas = ExtResource("3_55vve")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cowba"]
+atlas = ExtResource("3_55vve")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gsrde"]
+atlas = ExtResource("3_55vve")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vt4rw"]
+atlas = ExtResource("3_55vve")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tgaj3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s2s2q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o10xt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dty7w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0kiot")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cowba")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gsrde")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vt4rw")
+}],
+"loop": false,
+"name": &"vertical",
+"speed": 10.0
+}]
+
+[sub_resource type="Animation" id="Animation_xex8u"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DustExpandEffect:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"default"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DustExpandEffect:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DustParticles:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DustParticles:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("DustSmokeTrail:animation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"trail"]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("DustSmokeTrail:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("DustSmokeTrail:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("DustExpandEffect:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_fvlbv"]
+resource_name = "dust"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DustExpandEffect:animation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"vertical"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DustExpandEffect:frame")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4, 5, 6]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DustParticles:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("DustParticles:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("DustExpandEffect:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_tuyok"]
+resource_name = "smoke_trail"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DustSmokeTrail:animation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"trail"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DustSmokeTrail:frame")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DustSmokeTrail:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d4dmn"]
+_data = {
+"RESET": SubResource("Animation_xex8u"),
+"dust": SubResource("Animation_fvlbv"),
+"smoke_trail": SubResource("Animation_tuyok")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n8leb"]
+atlas = ExtResource("3_ncjly")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g3peu"]
+atlas = ExtResource("3_ncjly")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pv8aw"]
+atlas = ExtResource("3_ncjly")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_641ls"]
+atlas = ExtResource("3_ncjly")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ocdlo"]
+atlas = ExtResource("3_ncjly")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_32usf"]
+atlas = ExtResource("3_ncjly")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3j66h"]
+atlas = ExtResource("3_ncjly")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xjo72"]
+atlas = ExtResource("3_ncjly")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6bkjc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n8leb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g3peu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pv8aw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_641ls")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ocdlo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_32usf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3j66h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xjo72")
+}],
+"loop": false,
+"name": &"trail",
+"speed": 10.0
+}]
+
+[node name="JumpDust" type="Node2D"]
+script = ExtResource("1_adjg1")
+
+[node name="DustParticles" type="CPUParticles2D" parent="."]
+visible = false
+modulate = Color(0.917647, 0.917647, 0.917647, 0.443137)
+emitting = false
+amount = 3
+lifetime = 0.5
+one_shot = true
+speed_scale = 1.2
+randomness = 0.4
+texture = ExtResource("2_rxn1j")
+spread = 130.66
+gravity = Vector2(0, -20)
+initial_velocity_min = 5.0
+initial_velocity_max = 7.0
+tangential_accel_max = 5.0
+scale_amount_min = 0.4
+scale_amount_max = 0.5
+
+[node name="DustExpandEffect" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(0, -8)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_tgaj3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_d4dmn")
+}
+
+[node name="DustSmokeTrail" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(-5, -6.45)
+scale = Vector2(0.8, 0.8)
+sprite_frames = SubResource("SpriteFrames_6bkjc")
+animation = &"trail"

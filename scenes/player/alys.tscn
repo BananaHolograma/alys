@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cc70w3w0x68qf" path="res://assets/character_animations/IdleR_strip4.png" id="1_0x2nu"]
 [ext_resource type="Script" path="res://scenes/player/alys.gd" id="1_kghtd"]
-[ext_resource type="Texture2D" uid="uid://cgwh0g8ya0r3u" path="res://assets/effects/1_1.png" id="2_6ioiq"]
+[ext_resource type="Texture2D" uid="uid://cgwh0g8ya0r3u" path="res://assets/effects/dust/smoke_dust.png" id="2_dpvk6"]
 [ext_resource type="Script" path="res://addons/2d_essentials/movement/motion/platformer_movement_component.gd" id="2_iq801"]
 [ext_resource type="Texture2D" uid="uid://dbldvj2ocaei1" path="res://assets/character_animations/Death_strip7.png" id="2_nsmqm"]
 [ext_resource type="Texture2D" uid="uid://4vny8xs2g082" path="res://assets/character_animations/FallR_strip2.png" id="3_oxh6q"]
@@ -265,8 +265,8 @@ emitting = false
 amount = 2
 lifetime = 0.7
 speed_scale = 1.5
-texture = ExtResource("2_6ioiq")
-spread = 15.0
+texture = ExtResource("2_dpvk6")
+spread = 12.0
 gravity = Vector2(-10, 0)
 initial_velocity_min = 5.0
 initial_velocity_max = 10.0
