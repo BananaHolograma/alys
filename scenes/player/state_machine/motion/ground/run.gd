@@ -8,7 +8,7 @@ func _enter():
 	godot_essentials_platformer_movement.reset_jump_queue()
 
 	if previous_states.back() is Air:
-		godot_essentials_platformer_movement.decelerate(0.0, true)
+		godot_essentials_platformer_movement.velocity.y = 0
 
 func physics_update(delta):
 	super.physics_update(delta)

@@ -27,7 +27,7 @@ func physics_update(delta):
 
 func jump():
 	var can_jump: bool = false
-	if godot_essentials_platformer_movement.can_wall_jump():
+	if  not owner.is_on_floor() and godot_essentials_platformer_movement.can_wall_jump():
 		godot_essentials_platformer_movement.wall_jump(horizontal_direction)
 		can_jump = true
 		

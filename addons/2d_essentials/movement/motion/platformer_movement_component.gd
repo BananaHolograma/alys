@@ -66,6 +66,8 @@ signal wall_climb_finished
 @export_group("Wall Jump")
 ## Enable the wall jump action
 @export var wall_jump_enabled : bool = false
+## The force applied in the wall jump, this can be different as jump_height
+@export var wall_jump_force: float = jump_height
 ## Defines whether the wall jump is counted as a jump in the overall count.
 @export var wall_jump_count_as_jump: bool = false
 ## The maximum angle of deviation that a wall can have to allow the jump to be executed.
@@ -164,7 +166,7 @@ func move() -> void:
 	
 	var just_left_edge = was_on_floor and not body.is_on_floor()
 	
-	if just_left_edge and is_falling():
+	if coyote_jump_enabled and just_left_edge and is_falling():
 		coyote_time_started.emit()
 		
 
@@ -290,11 +292,15 @@ func shorten_jump() -> void:
 
 
 func wall_jump(direction: Vector2, height: float = jump_height) -> GodotEssentialsPlatformerMovementComponent:
-	var wall_normal: Vector2 = body.get_wall_normal() if direction.is_zero_approx() else direction
+	var wall_normal: Vector2 = body.get_wall_normal()
 	var left_angle: float = absf(wall_normal.angle_to(Vector2.LEFT))
 	var right_angle: float = absf(wall_normal.angle_to(Vector2.RIGHT))
 	
-	velocity.x = wall_normal.x * velocity.y
+	velocity.x = wall_normal.x * wall_jump_force
+	
+#	if not direction.is_zero_approx():
+#		velocity *= Helpers.normalize_vector(direction)
+#
 	jump(height, true)
 
 	if wall_jump_count_as_jump:

@@ -235,8 +235,8 @@ offset = Vector2(0, -2)
 [node name="GodotEssentialsPlatformerMovementComponent" type="Node2D" parent="."]
 script = ExtResource("2_iq801")
 jump_height = 32.0
-jump_time_to_peak = 0.32
-jump_time_to_fall = 0.33
+jump_time_to_peak = 0.3
+jump_time_to_fall = 0.25
 jump_threshold = 150.0
 allowed_jumps = 2
 coyote_jump_time_window = 0.1
