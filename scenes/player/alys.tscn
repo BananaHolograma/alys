@@ -1,16 +1,45 @@
-[gd_scene load_steps=23 format=3 uid="uid://cxi3ivpubf42w"]
+[gd_scene load_steps=40 format=3 uid="uid://cxi3ivpubf42w"]
 
 [ext_resource type="Texture2D" uid="uid://cc70w3w0x68qf" path="res://assets/character_animations/IdleR_strip4.png" id="1_0x2nu"]
 [ext_resource type="Script" path="res://scenes/player/alys.gd" id="1_kghtd"]
 [ext_resource type="Script" path="res://addons/2d_essentials/movement/motion/platformer_movement_component.gd" id="2_iq801"]
+[ext_resource type="Texture2D" uid="uid://dbldvj2ocaei1" path="res://assets/character_animations/Death_strip7.png" id="2_nsmqm"]
+[ext_resource type="Texture2D" uid="uid://4vny8xs2g082" path="res://assets/character_animations/FallR_strip2.png" id="3_oxh6q"]
 [ext_resource type="Script" path="res://addons/2d_essentials/patterns/finite_state_machine/finite_state_machine.gd" id="3_xosfn"]
 [ext_resource type="Texture2D" uid="uid://boewo46r0oqvg" path="res://assets/character_animations/WalkR_strip8.png" id="3_y23en"]
 [ext_resource type="Script" path="res://scenes/player/state_machine/motion/ground/idle.gd" id="4_qjqae"]
+[ext_resource type="Texture2D" uid="uid://bvdnbbh1nslwf" path="res://assets/character_animations/JumpR_strip4.png" id="5_qn2yc"]
 [ext_resource type="Script" path="res://scenes/player/state_machine/motion/ground/run.gd" id="6_qckvf"]
 [ext_resource type="Script" path="res://scenes/player/debug_display.gd" id="8_3kacr"]
+[ext_resource type="Script" path="res://scenes/player/state_machine/motion/air/jump.gd" id="11_cw8ih"]
+[ext_resource type="Script" path="res://scenes/player/state_machine/motion/air/fall.gd" id="12_7bsei"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2r554"]
 size = Vector2(12, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4pw2e"]
+atlas = ExtResource("2_nsmqm")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gbeoj"]
+atlas = ExtResource("2_nsmqm")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_37ln2"]
+atlas = ExtResource("2_nsmqm")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xcrgm"]
+atlas = ExtResource("2_nsmqm")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3atfo"]
+atlas = ExtResource("3_oxh6q")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1kw7m"]
+atlas = ExtResource("3_oxh6q")
+region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4jbw4"]
 atlas = ExtResource("1_0x2nu")
@@ -27,6 +56,30 @@ region = Rect2(64, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_ovcx2"]
 atlas = ExtResource("1_0x2nu")
 region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i5x3q"]
+atlas = ExtResource("5_qn2yc")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pojwi"]
+atlas = ExtResource("5_qn2yc")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lyclg"]
+atlas = ExtResource("5_qn2yc")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tpft7"]
+atlas = ExtResource("5_qn2yc")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jnqbo"]
+atlas = ExtResource("3_oxh6q")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cok4v"]
+atlas = ExtResource("3_oxh6q")
+region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tldhq"]
 atlas = ExtResource("3_y23en")
@@ -64,6 +117,34 @@ region = Rect2(224, 0, 32, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_4pw2e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gbeoj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_37ln2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xcrgm")
+}],
+"loop": false,
+"name": &"death",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3atfo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1kw7m")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_4jbw4")
 }, {
 "duration": 1.0,
@@ -77,6 +158,29 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i5x3q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pojwi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lyclg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tpft7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jnqbo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cok4v")
+}],
+"loop": false,
+"name": &"jump",
 "speed": 6.0
 }, {
 "frames": [{
@@ -124,16 +228,15 @@ shape = SubResource("RectangleShape2D_2r554")
 position = Vector2(0, -6)
 sprite_frames = SubResource("SpriteFrames_oixa1")
 animation = &"idle"
-frame_progress = 0.0130629
 offset = Vector2(0, -2)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [node name="GodotEssentialsPlatformerMovementComponent" type="Node2D" parent="."]
 script = ExtResource("2_iq801")
-jump_height = 50.0
-jump_time_to_peak = 0.3
-jump_time_to_fall = 0.25
+jump_height = 32.0
+jump_time_to_peak = 0.32
+jump_time_to_fall = 0.33
 jump_threshold = 150.0
 allowed_jumps = 2
 coyote_jump_time_window = 0.1
@@ -154,6 +257,14 @@ script = ExtResource("4_qjqae")
 [node name="Run" type="Node" parent="GodotEssentialsFiniteStateMachine/Ground"]
 script = ExtResource("6_qckvf")
 
+[node name="Air" type="Node" parent="GodotEssentialsFiniteStateMachine"]
+
+[node name="Jump" type="Node" parent="GodotEssentialsFiniteStateMachine/Air"]
+script = ExtResource("11_cw8ih")
+
+[node name="Fall" type="Node" parent="GodotEssentialsFiniteStateMachine/Air"]
+script = ExtResource("12_7bsei")
+
 [node name="DebugDisplay" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
@@ -169,6 +280,18 @@ offset_right = 21.0
 offset_bottom = -14.0
 theme_override_font_sizes/font_size = 8
 text = "State"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CoyoteTime" type="Label" parent="DebugDisplay"]
+visible = false
+layout_mode = 0
+offset_left = -21.0
+offset_top = -46.0
+offset_right = 35.0
+offset_bottom = -23.0
+theme_override_font_sizes/font_size = 8
+text = "Coyote time!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -269,6 +392,11 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 4
 
+[node name="IsFalling" type="Label" parent="DebugDisplay/ActiveStatusesContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 4
+
 [node name="IsWallClimbing" type="Label" parent="DebugDisplay/ActiveStatusesContainer"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -280,6 +408,11 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 4
 
 [node name="IsDashing" type="Label" parent="DebugDisplay/ActiveStatusesContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 4
+
+[node name="CoyoteTimeActive" type="Label" parent="DebugDisplay/ActiveStatusesContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 4

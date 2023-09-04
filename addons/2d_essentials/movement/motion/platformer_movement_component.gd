@@ -368,9 +368,9 @@ func is_withing_jump_threshold() -> bool:
 	
 	if jump_threshold > 0:
 		if is_inverted_gravity:
-			is_withing_threshold = body.global_position.y > 0 or (body.global_position.y < -jump_threshold)
+			is_withing_threshold = velocity.y > 0 or (velocity.y < -jump_threshold)
 		else:	
-			is_withing_threshold = body.global_position.y < 0 or (body.global_position.y < jump_threshold)
+			is_withing_threshold = velocity.y < 0 or (velocity.y < jump_threshold)
 
 	return is_withing_threshold
 
