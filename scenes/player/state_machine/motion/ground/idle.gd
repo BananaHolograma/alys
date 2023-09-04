@@ -24,6 +24,6 @@ func physics_update(delta):
 	if Input.is_action_just_pressed("jump"):
 		state_finished.emit("Jump")
 		return
-#
-#	if godot_essentials_platformer_movement.is_falling():
-#		state_finished.emit("Fall")
+
+	if godot_essentials_platformer_movement.is_falling():
+		state_finished.emit("Fall")

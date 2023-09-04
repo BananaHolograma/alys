@@ -1,14 +1,21 @@
 class_name Run extends Ground
 
+@onready var running_dust: CPUParticles2D = $"../../../Effects/RunningDust"
 
 func _enter():
 	if animated_sprite:
 		animated_sprite.play("run")
 	
+	if running_dust:
+		running_dust.emitting = true
+		
 	godot_essentials_platformer_movement.reset_jump_queue()
 
 	if previous_states.back() is Air:
 		godot_essentials_platformer_movement.velocity.y = 0
+
+func _exit():
+	running_dust.emitting = false
 
 func physics_update(delta):
 	super.physics_update(delta)
@@ -21,6 +28,14 @@ func physics_update(delta):
 			godot_essentials_platformer_movement.decelerate_horizontally(delta)
 	else:
 		godot_essentials_platformer_movement.accelerate_horizontally(horizontal_direction, delta)
+		
+		match(horizontal_direction):
+			Vector2.RIGHT:
+				running_dust.gravity = Vector2(-running_dust.gravity.x, running_dust.gravity.y)
+			Vector2.LEFT:
+				running_dust.gravity =  Vector2(abs(running_dust.gravity.x), running_dust.gravity.y)
+		
+		running_dust.direction = horizontal_direction
 	
 	
 	if Input.is_action_just_pressed("jump"):

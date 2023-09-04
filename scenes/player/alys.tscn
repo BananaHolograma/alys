@@ -1,7 +1,8 @@
-[gd_scene load_steps=40 format=3 uid="uid://cxi3ivpubf42w"]
+[gd_scene load_steps=43 format=3 uid="uid://cxi3ivpubf42w"]
 
 [ext_resource type="Texture2D" uid="uid://cc70w3w0x68qf" path="res://assets/character_animations/IdleR_strip4.png" id="1_0x2nu"]
 [ext_resource type="Script" path="res://scenes/player/alys.gd" id="1_kghtd"]
+[ext_resource type="Texture2D" uid="uid://cgwh0g8ya0r3u" path="res://assets/effects/1_1.png" id="2_6ioiq"]
 [ext_resource type="Script" path="res://addons/2d_essentials/movement/motion/platformer_movement_component.gd" id="2_iq801"]
 [ext_resource type="Texture2D" uid="uid://dbldvj2ocaei1" path="res://assets/character_animations/Death_strip7.png" id="2_nsmqm"]
 [ext_resource type="Texture2D" uid="uid://4vny8xs2g082" path="res://assets/character_animations/FallR_strip2.png" id="3_oxh6q"]
@@ -213,6 +214,38 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="Animation" id="Animation_7mqyn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"run"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e8tv4"]
+_data = {
+"RESET": SubResource("Animation_7mqyn")
+}
+
 [node name="Alys" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_kghtd")
 metadata/_edit_vertical_guides_ = [-203.0]
@@ -224,13 +257,34 @@ position = Vector2(0, -44)
 position = Vector2(0, -7)
 shape = SubResource("RectangleShape2D_2r554")
 
+[node name="Effects" type="Node2D" parent="."]
+
+[node name="RunningDust" type="CPUParticles2D" parent="Effects"]
+modulate = Color(1, 1, 1, 0.392157)
+emitting = false
+amount = 2
+lifetime = 0.7
+speed_scale = 1.5
+texture = ExtResource("2_6ioiq")
+spread = 15.0
+gravity = Vector2(-10, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+radial_accel_min = 1.0
+radial_accel_max = 1.0
+scale_amount_min = 0.5
+color = Color(0.803922, 0.807843, 0.823529, 1)
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -6)
 sprite_frames = SubResource("SpriteFrames_oixa1")
-animation = &"idle"
+animation = &"run"
 offset = Vector2(0, -2)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_e8tv4")
+}
 
 [node name="GodotEssentialsPlatformerMovementComponent" type="Node2D" parent="."]
 script = ExtResource("2_iq801")
