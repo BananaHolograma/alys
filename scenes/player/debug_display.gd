@@ -35,6 +35,9 @@ func _ready():
 	
 	godot_essentials_platformer_movement_component.jumped.connect(on_jumped)
 	godot_essentials_platformer_movement_component.jumps_restarted.connect(on_jumps_restarted)
+	godot_essentials_platformer_movement_component.dashed.connect(on_dashed)
+	godot_essentials_platformer_movement_component.dash_free_from_cooldown.connect(on_dash_free_from_cooldown)
+	godot_essentials_platformer_movement_component.finished_dash.connect(on_finished_dash)
 	godot_essentials_platformer_movement_component.dash_restarted.connect(on_dash_restarted)
 	godot_essentials_platformer_movement_component.coyote_time_started.connect(on_coyote_time_started)
 	godot_essentials_platformer_movement_component.coyote_time_finished.connect(on_coyote_time_finished)
@@ -86,12 +89,12 @@ func display_active_statuses():
 	is_falling_label.text = "Is Falling: " + str(godot_essentials_platformer_movement_component.is_falling())
 
 
-func on_jumped(position: Vector2):
+func on_jumped(_position: Vector2):
 	display_jump_parameters()
 	display_queues()
 	
 
-func on_dashed():
+func on_dashed(_position: Vector2):
 	display_queues()
 
 
@@ -100,6 +103,15 @@ func on_jumps_restarted():
 		
 		
 func on_dash_restarted():
+	display_queues()
+
+
+func on_finished_dash(_original_position: Vector2, _final_position):
+	display_queues()
+
+	
+func on_dash_free_from_cooldown(_dash_position: Vector2, _current_dash_queue: Array[Vector2]):
+	print("dash free")
 	display_queues()
 
 

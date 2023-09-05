@@ -8,6 +8,7 @@ signal temporary_speed_finished
 signal teleported(from: Vector2, to: Vector2)
 signal dashed(position: Vector2)
 signal finished_dash(initial_position: Vector2, final_position: Vector2)
+signal dash_free_from_cooldown(dash_position: Vector2, current_dash_queue: Array[Vector2])
 signal dash_restarted
 
 
@@ -271,7 +272,9 @@ func on_temporary_speed_timer_timeout(original_speed: float):
 
 
 func on_dash_cooldown_timer_timeout(timer: Timer):
-	dash_queue.pop_back()
+	if not dash_queue.is_empty():
+		var last_dash_position = dash_queue.pop_back()
+		dash_free_from_cooldown.emit(last_dash_position, dash_queue)
 	timer.queue_free()
 	
 	
@@ -279,4 +282,3 @@ func on_dash_duration_timer_timeout():
 	is_dashing = false
 	_create_dash_cooldown_timer()
 	finished_dash.emit(dash_queue.back(), body.global_position)
-	

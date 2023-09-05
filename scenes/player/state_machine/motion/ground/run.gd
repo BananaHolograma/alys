@@ -34,6 +34,10 @@ func physics_update(delta):
 		state_finished.emit("Jump")
 		return
 		
+	if Input.is_action_just_pressed("dash") and godot_essentials_platformer_movement.can_dash(input_direction):
+		state_finished.emit("Dash")
+		return
+		
 	godot_essentials_platformer_movement.move()
 
 

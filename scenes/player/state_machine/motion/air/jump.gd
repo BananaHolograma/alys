@@ -30,8 +30,9 @@ func physics_update(delta):
 		state_finished.emit("Fall")
 
 
-func jump():
+func jump() -> void:
 	var can_jump: bool = false
+	
 	if  not owner.is_on_floor() and godot_essentials_platformer_movement.can_wall_jump():
 		godot_essentials_platformer_movement.wall_jump(horizontal_direction)
 		can_jump = true
@@ -45,12 +46,12 @@ func jump():
 		animated_sprite.play("jump")
 
 
-func on_jumped(position: Vector2):
+func on_jumped(position: Vector2) -> void:
 	if godot_essentials_platformer_movement.jump_queue.size() == 1 and owner.is_on_floor():
 		display_jump_dust(position)
 
 
-func display_jump_dust(position: Vector2):
+func display_jump_dust(position: Vector2) -> void:
 	if jump_dust_effect_scene:
 		var jump_dust_effect = jump_dust_effect_scene.instantiate()
 		jump_dust_effect.current_animation = "dust" if owner.velocity.x == 0 else "smoke_trail"
