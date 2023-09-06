@@ -50,6 +50,7 @@ func jump() -> void:
 			godot_essentials_platformer_movement.jump()
 			can_jump = true
 
+
 	if animated_sprite and can_jump:
 		animated_sprite.stop()
 		animated_sprite.play("jump")
@@ -58,15 +59,24 @@ func jump() -> void:
 
 
 func on_jumped(position: Vector2) -> void:
-	if godot_essentials_platformer_movement.jump_queue.size() == 1 and owner.is_on_floor():
-		display_jump_dust(position)
+	display_jump_effects(position)
 
 
-func display_jump_dust(position: Vector2) -> void:
+func display_jump_effects(position: Vector2) -> void:
 	if jump_dust_effect_scene:
 		var jump_dust_effect = jump_dust_effect_scene.instantiate()
-		jump_dust_effect.current_animation = "dust" if owner.velocity.x == 0 else "smoke_trail"
+		
+		if owner.velocity.x == 0:
+			jump_dust_effect.current_animation = ["air_jump_smoke", "air_jump_smoke_2"].pick_random()
+		else:
+			if godot_essentials_platformer_movement.jump_queue.size() == 1:
+				jump_dust_effect.current_animation =  "smoke_trail"
+			else:
+				jump_dust_effect.current_animation =  ["air_jump_smoke", "air_jump_smoke_2"].pick_random()
+			
 		jump_dust_effect.look_direction = horizontal_direction	
 		get_tree().root.add_child(jump_dust_effect)
 		jump_dust_effect.position = position
 
+func display_wall_jump_effects(position: Vector2):
+	pass

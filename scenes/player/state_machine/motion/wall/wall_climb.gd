@@ -15,6 +15,7 @@ func _exit():
 	godot_essentials_platformer_movement.is_wall_climbing = false
 	animated_sprite.stop()
 
+
 func physics_update(delta):
 	get_input_direction()
 	

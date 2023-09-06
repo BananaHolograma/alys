@@ -1,7 +1,8 @@
-extends Node2D
+class_name JumpDustEffect extends Node2D
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var dust_smoke_trail: AnimatedSprite2D = $DustSmokeTrail
+@onready var second_jump_smoke: AnimatedSprite2D = $SecondJumpSmoke
 
 var current_animation: String = "dust"
 var look_direction: Vector2 = Vector2.LEFT
@@ -13,5 +14,4 @@ func _ready():
 				dust_smoke_trail.position.x *= -1
 	
 	animation_player.play(current_animation)
-	
 

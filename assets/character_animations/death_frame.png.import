@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://coc2mkx2cc1na"
-path="res://.godot/imported/PushCrateR_strip8.png-8c185b4894b2e8fbfefb0a2205cf855a.ctex"
+uid="uid://cctelbyrebk13"
+path="res://.godot/imported/death_frame.png-37987247887cd7956882db71814afb4f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/effects/dust/PushCrateR_strip8.png"
-dest_files=["res://.godot/imported/PushCrateR_strip8.png-8c185b4894b2e8fbfefb0a2205cf855a.ctex"]
+source_file="res://assets/character_animations/death_frame.png"
+dest_files=["res://.godot/imported/death_frame.png-37987247887cd7956882db71814afb4f.ctex"]
 
 [params]
 
