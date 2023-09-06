@@ -1,10 +1,12 @@
-[gd_scene load_steps=49 format=3 uid="uid://cxi3ivpubf42w"]
+[gd_scene load_steps=51 format=3 uid="uid://cxi3ivpubf42w"]
 
 [ext_resource type="Texture2D" uid="uid://cc70w3w0x68qf" path="res://assets/character_animations/IdleR_strip4.png" id="1_0x2nu"]
 [ext_resource type="Script" path="res://scenes/player/alys.gd" id="1_kghtd"]
+[ext_resource type="Script" path="res://scenes/player/camera.gd" id="2_1lehx"]
 [ext_resource type="Texture2D" uid="uid://cgwh0g8ya0r3u" path="res://assets/effects/dust/smoke_dust.png" id="2_dpvk6"]
 [ext_resource type="Script" path="res://addons/2d_essentials/movement/motion/platformer_movement_component.gd" id="2_iq801"]
 [ext_resource type="Texture2D" uid="uid://dbldvj2ocaei1" path="res://assets/character_animations/Death_strip7.png" id="2_nsmqm"]
+[ext_resource type="Script" path="res://addons/2d_essentials/camera/shake_camera_component.gd" id="2_t67ha"]
 [ext_resource type="Texture2D" uid="uid://4vny8xs2g082" path="res://assets/character_animations/FallR_strip2.png" id="3_oxh6q"]
 [ext_resource type="Script" path="res://addons/2d_essentials/patterns/finite_state_machine/finite_state_machine.gd" id="3_xosfn"]
 [ext_resource type="Texture2D" uid="uid://boewo46r0oqvg" path="res://assets/character_animations/WalkR_strip8.png" id="3_y23en"]
@@ -323,7 +325,11 @@ metadata/_edit_vertical_guides_ = [-203.0]
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -44)
 process_callback = 0
-position_smoothing_speed = 10.0
+position_smoothing_enabled = true
+script = ExtResource("2_1lehx")
+
+[node name="ShakeCameraComponent2D" type="Node2D" parent="Camera2D"]
+script = ExtResource("2_t67ha")
 
 [node name="BodyCollisionShape" type="CollisionShape2D" parent="."]
 position = Vector2(0, -7)
