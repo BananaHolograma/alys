@@ -13,9 +13,11 @@ func _enter():
 
 	if previous_states.back() is Air:
 		godot_essentials_platformer_movement.velocity.y = 0
-
+		
+		
 func _exit():
 	running_dust.emitting = false
+
 
 func physics_update(delta):
 	super.physics_update(delta)
@@ -30,6 +32,8 @@ func physics_update(delta):
 		godot_essentials_platformer_movement.accelerate_horizontally(horizontal_direction, delta)
 		emit_dust_particles(horizontal_direction)
 	
+	godot_essentials_platformer_movement.move()
+	
 	if Input.is_action_just_pressed("jump"):
 		state_finished.emit("Jump")
 		return
@@ -38,7 +42,8 @@ func physics_update(delta):
 		state_finished.emit("Dash")
 		return
 		
-	godot_essentials_platformer_movement.move()
+	if godot_essentials_platformer_movement.is_falling():
+		state_finished.emit("Fall")
 
 
 func emit_dust_particles(horizontal_direction: Vector2):

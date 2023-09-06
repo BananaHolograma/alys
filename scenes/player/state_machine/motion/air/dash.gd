@@ -2,6 +2,8 @@ class_name Dash extends Air
 
 @export var dash_effect_times: int = 3
 @onready var shake_camera_component_2d = $"../../../Camera2D/ShakeCameraComponent2D" as ShakeCameraComponent2D
+@onready var dash_trail: CPUParticles2D = $"../../../Effects/DashTrail"
+
 
 var dash_effect_queue: Array[Vector2] = []
 var dash_animation_time: int = 0
@@ -14,11 +16,14 @@ func _ready():
 func _enter():
 	get_input_direction()
 	dash()
-
+	dash_trail.emitting = true
+	dash_trail.direction = input_direction
 
 func _exit():
 	godot_essentials_platformer_movement.gravity_enabled = true
 	dash_effect_queue.clear()
+	dash_trail.emitting = false
+
 
 	
 func physics_update(delta):
@@ -54,19 +59,24 @@ func dash():
 	godot_essentials_platformer_movement.decelerate(0.0, true).dash(input_direction)
 	dash_animation_time = 0
 	shake_camera_component_2d.shake(1.0)
-	
+	dash_trail.direction = input_direction
 	
 func update_animations():
 	if animated_sprite:
+		var animation_to_run = ""
+		
 		if previous_states.back() is Ground:
-			animated_sprite.play("dash_ground")
+			animation_to_run = "dash_ground"
 		if previous_states.back() is Air:
-			animated_sprite.play("dash_air")
+			animation_to_run = "dash_air"
+		
+		animated_sprite.play(animation_to_run)
 		
 		if animated_sprite.is_playing():
 			dash_animation_time += 1
 			if dash_animation_time in [3,9,15]:
 				dash_effect()
+			
 		
 
 func dash_effect():

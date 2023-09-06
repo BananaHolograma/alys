@@ -1,7 +1,7 @@
 class_name PlayerCamera extends Camera2D
 
 @onready var SCREEN_SIZE: Vector2 = get_viewport_rect().size
-@onready var PLAYER: CharacterBody2D = get_parent() as CharacterBody2D
+@onready var PLAYER: CharacterBody2D = get_parent() as Alys
 var current_screen: Vector2 = Vector2.ZERO
 
 
@@ -20,4 +20,6 @@ func _physics_process(delta):
 func _update_screen(new_screen: Vector2):
 	current_screen = new_screen
 	global_position = current_screen * SCREEN_SIZE + SCREEN_SIZE * 0.5
+	
+	PLAYER.get_node("GodotEssentialsPlatformerMovementComponent").reset_dash_queue()
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://cxi3ivpubf42w"]
+[gd_scene load_steps=52 format=3 uid="uid://cxi3ivpubf42w"]
 
 [ext_resource type="Texture2D" uid="uid://cc70w3w0x68qf" path="res://assets/character_animations/IdleR_strip4.png" id="1_0x2nu"]
 [ext_resource type="Script" path="res://scenes/player/alys.gd" id="1_kghtd"]
@@ -20,6 +20,9 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2r554"]
 size = Vector2(12, 14)
+
+[sub_resource type="Gradient" id="Gradient_nr1c3"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iss8h"]
 atlas = ExtResource("3_y23en")
@@ -323,7 +326,6 @@ script = ExtResource("1_kghtd")
 metadata/_edit_vertical_guides_ = [-203.0]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, -44)
 process_callback = 0
 position_smoothing_enabled = true
 script = ExtResource("2_1lehx")
@@ -353,12 +355,29 @@ radial_accel_max = 1.0
 scale_amount_min = 0.5
 color = Color(0.803922, 0.807843, 0.823529, 1)
 
+[node name="DashTrail" type="CPUParticles2D" parent="Effects"]
+emitting = false
+amount = 30
+lifetime = 0.8
+explosiveness = 0.1
+draw_order = 1
+emission_shape = 3
+emission_rect_extents = Vector2(1, 1)
+spread = 78.16
+gravity = Vector2(0, 0)
+initial_velocity_min = 8.0
+initial_velocity_max = 15.0
+damping_max = 10.0
+angle_min = 45.0
+angle_max = 90.0
+color_ramp = SubResource("Gradient_nr1c3")
+hue_variation_min = 0.5
+hue_variation_max = 1.0
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -6)
 sprite_frames = SubResource("SpriteFrames_oixa1")
-animation = &"dash_air"
-frame = 5
-frame_progress = 1.0
+animation = &"run"
 offset = Vector2(0, -2)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -368,16 +387,17 @@ libraries = {
 
 [node name="GodotEssentialsPlatformerMovementComponent" type="Node2D" parent="."]
 script = ExtResource("2_iq801")
-jump_height = 32.0
+jump_height = 28.0
 jump_time_to_peak = 0.3
 jump_time_to_fall = 0.25
 jump_threshold = 150.0
-allowed_jumps = 2
 coyote_jump_time_window = 0.1
 wall_jump_enabled = true
-MAX_SPEED = 110.0
+wall_jump_force = 30.0
+MAX_SPEED = 100.0
 FRICTION = 800.0
-DASH_SPEED_MULTIPLIER = 1.4
+DASH_SPEED_MULTIPLIER = 1.27
+dash_cooldown = 1.0
 
 [node name="GodotEssentialsFiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("3_xosfn")

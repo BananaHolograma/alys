@@ -1,4 +1,4 @@
-extends CharacterBody2D
+class_name Alys extends CharacterBody2D
 
 @onready var godot_essentials_platformer_movement_component: GodotEssentialsPlatformerMovementComponent = $GodotEssentialsPlatformerMovementComponent
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D

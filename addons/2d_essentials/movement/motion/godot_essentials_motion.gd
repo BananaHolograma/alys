@@ -281,4 +281,6 @@ func on_dash_cooldown_timer_timeout(timer: Timer):
 func on_dash_duration_timer_timeout():
 	is_dashing = false
 	_create_dash_cooldown_timer()
-	finished_dash.emit(dash_queue.back(), body.global_position)
+	var last_dash = dash_queue.back() if dash_queue.size() else Vector2.ZERO
+	finished_dash.emit(last_dash, body.global_position)
+	
