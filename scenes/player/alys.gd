@@ -15,5 +15,3 @@ func _update_sprite_flip():
 	
 	if animated_sprite_2d.flip_h != is_left_direction:
 		animated_sprite_2d.flip_h = is_left_direction
-
-

@@ -111,7 +111,6 @@ func on_finished_dash(_original_position: Vector2, _final_position):
 
 	
 func on_dash_free_from_cooldown(_dash_position: Vector2, _current_dash_queue: Array[Vector2]):
-	print("dash free")
 	display_queues()
 
 

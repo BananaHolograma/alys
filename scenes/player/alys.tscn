@@ -149,6 +149,12 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rb2ig")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iss8h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rb2ig")
 }],
 "loop": false,
 "name": &"dash_air",
@@ -157,6 +163,12 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1x3fx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_txm2x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5w05p")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_txm2x")
@@ -339,7 +351,7 @@ color = Color(0.803922, 0.807843, 0.823529, 1)
 position = Vector2(0, -6)
 sprite_frames = SubResource("SpriteFrames_oixa1")
 animation = &"dash_air"
-frame = 3
+frame = 5
 frame_progress = 1.0
 offset = Vector2(0, -2)
 
@@ -359,7 +371,7 @@ coyote_jump_time_window = 0.1
 wall_jump_enabled = true
 MAX_SPEED = 110.0
 FRICTION = 800.0
-DASH_SPEED_MULTIPLIER = 1.75
+DASH_SPEED_MULTIPLIER = 1.4
 
 [node name="GodotEssentialsFiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("3_xosfn")

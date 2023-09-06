@@ -3,7 +3,7 @@ class_name Dash extends Air
 @export var dash_effect_times: int = 3
 
 var dash_effect_queue: Array[Vector2] = []
-
+var dash_animation_time: int = 0
 
 func _ready():
 	super._ready()
@@ -29,7 +29,7 @@ func physics_update(delta):
 	godot_essentials_platformer_movement.apply_air_friction_horizontal()\
 			.apply_air_friction_vertical()\
 			.move()
-			
+	
 	if godot_essentials_platformer_movement.is_dashing:
 		update_animations()
 	else:
@@ -51,6 +51,7 @@ func physics_update(delta):
 
 func dash():
 	godot_essentials_platformer_movement.decelerate(0.0, true).dash(input_direction)
+	dash_animation_time = 0
 	
 	
 func update_animations():
@@ -61,15 +62,11 @@ func update_animations():
 			animated_sprite.play("dash_air")
 		
 		if animated_sprite.is_playing():
-#			var current_position = animated_sprite.sprite_frames.
-
-#			if current_position > 0.1 and current_position < 0.12 or \
-#			 	current_position > 0.25 and current_position < 0.27 or \
-#				current_position >= 0.4 and current_position < 0.42:
-#
+			dash_animation_time += 1
+			if dash_animation_time in [3,9,15]:
 				dash_effect()
 		
-		
+
 func dash_effect():
 	if animated_sprite:
 		var sprite: Sprite2D = Sprite2D.new()
@@ -77,12 +74,11 @@ func dash_effect():
 
 		get_tree().root.add_child(sprite)
 		
-		sprite.modulate = Color.WHITE
 		sprite.global_position = animated_sprite.global_position
 		sprite.scale = animated_sprite.scale
 		sprite.flip_h = animated_sprite.flip_h
 		sprite.flip_v = animated_sprite.flip_v
-
+		sprite.modulate = Color(249.0, 58.0, 59.0, 0.75)
 		var tween: Tween = create_tween()
 		
 		tween.tween_property(sprite, "modulate:a", 0.0, 0.7).set_trans(tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
