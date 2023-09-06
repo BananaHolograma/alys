@@ -30,6 +30,10 @@ func physics_update(delta):
 		state_finished.emit("Dash")
 		return
 		
+	if Input.is_action_pressed("climb") and godot_essentials_platformer_movement.can_wall_climb():
+		state_finished.emit("WallClimb")
+		return
+		
 	if godot_essentials_platformer_movement.is_falling():
 		state_finished.emit("Fall")
 
@@ -39,6 +43,7 @@ func jump() -> void:
 	
 	if  not owner.is_on_floor() and godot_essentials_platformer_movement.can_wall_jump():
 		godot_essentials_platformer_movement.wall_jump(horizontal_direction)
+		godot_essentials_platformer_movement.velocity.y += 15
 		can_jump = true
 		
 	elif godot_essentials_platformer_movement.can_jump():
@@ -48,6 +53,8 @@ func jump() -> void:
 	if animated_sprite and can_jump:
 		animated_sprite.stop()
 		animated_sprite.play("jump")
+		var tween = create_tween()
+		tween.tween_property(animated_sprite, "scale:x", 1.0, 0.4).from(0.85).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_BOUNCE)
 
 
 func on_jumped(position: Vector2) -> void:
