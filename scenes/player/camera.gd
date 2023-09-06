@@ -1,8 +1,9 @@
-extends Camera2D
+class_name PlayerCamera extends Camera2D
 
 @onready var SCREEN_SIZE: Vector2 = get_viewport_rect().size
 @onready var PLAYER: CharacterBody2D = get_parent() as CharacterBody2D
 var current_screen: Vector2 = Vector2.ZERO
+
 
 func _ready():
 	top_level = true
@@ -19,3 +20,4 @@ func _physics_process(delta):
 func _update_screen(new_screen: Vector2):
 	current_screen = new_screen
 	global_position = current_screen * SCREEN_SIZE + SCREEN_SIZE * 0.5
+
