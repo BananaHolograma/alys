@@ -21,6 +21,6 @@ This demo is based on the popular game Celeste and incorporates some of its mech
 For a comprehensive explanation of how Alys works, please refer to the [official godot 2d essentials documentation](https://godot-essentials.gitbook.io/addons-documentation/)
 
 # Resources
-[Alys character](https://jobit91.itch.io/alys)
-[Background desert mountains](https://szadiart.itch.io/background-desert-mountains)
-[Smoke effects](https://bdragon1727.itch.io/free-smoke-fx-pixel-2)
+- [Alys character](https://jobit91.itch.io/alys)
+- [Background desert mountains](https://szadiart.itch.io/background-desert-mountains)
+- [Smoke effects](https://bdragon1727.itch.io/free-smoke-fx-pixel-2)
