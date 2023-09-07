@@ -105,6 +105,6 @@ func on_dashed(_position: Vector2):
 func on_finished_dash(_initial_position: Vector2, _final_position: Vector2):
 	godot_essentials_platformer_movement.gravity_enabled = true
 	
-	if not godot_essentials_platformer_movement.is_dashing:
+	if not godot_essentials_platformer_movement.is_dashing and not owner.is_on_floor():
 		state_finished.emit("Neutral", {})
 	
