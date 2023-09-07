@@ -8,10 +8,12 @@ class_name Dash extends Air
 var dash_effect_queue: Array[Vector2] = []
 var dash_animation_time: int = 0
 
+
 func _ready():
 	super._ready()
 	godot_essentials_platformer_movement.dashed.connect(on_dashed)
 	godot_essentials_platformer_movement.finished_dash.connect(on_finished_dash)
+
 
 func _enter():
 	get_input_direction()
@@ -25,7 +27,6 @@ func _exit():
 	dash_trail.emitting = false
 
 
-	
 func physics_update(delta):
 	super.physics_update(delta)
 	
@@ -103,3 +104,7 @@ func on_dashed(_position: Vector2):
 	
 func on_finished_dash(_initial_position: Vector2, _final_position: Vector2):
 	godot_essentials_platformer_movement.gravity_enabled = true
+	
+	if not godot_essentials_platformer_movement.is_dashing:
+		state_finished.emit("Neutral")
+	

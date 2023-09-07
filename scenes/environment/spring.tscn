@@ -1,0 +1,67 @@
+[gd_scene load_steps=11 format=3 uid="uid://t7fccdovk66k"]
+
+[ext_resource type="Texture2D" uid="uid://umr75mycg1hq" path="res://assets/environment/spring/00.png" id="1_rvxyq"]
+[ext_resource type="Script" path="res://scenes/environment/spring.gd" id="1_twidb"]
+[ext_resource type="Texture2D" uid="uid://cwo427ocavonf" path="res://assets/environment/spring/01.png" id="2_52m5l"]
+[ext_resource type="Texture2D" uid="uid://corvw0v3hesaj" path="res://assets/environment/spring/02.png" id="3_007u4"]
+[ext_resource type="Texture2D" uid="uid://cv7vf1yydwcyb" path="res://assets/environment/spring/03.png" id="4_f3x8o"]
+[ext_resource type="Texture2D" uid="uid://bv2mbqyjwr02j" path="res://assets/environment/spring/04.png" id="5_p3l5a"]
+[ext_resource type="Texture2D" uid="uid://bsxs5dfcrajfs" path="res://assets/environment/spring/05.png" id="6_7ufwf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_reb4q"]
+atlas = ExtResource("1_rvxyq")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cuu3c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_reb4q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_52m5l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_007u4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_f3x8o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_p3l5a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_7ufwf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_reb4q")
+}],
+"loop": false,
+"name": &"bounce",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0u1r7"]
+size = Vector2(12, 3)
+
+[node name="Spring" type="Node2D"]
+script = ExtResource("1_twidb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_cuu3c")
+animation = &"bounce"
+frame = 6
+frame_progress = 1.0
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+monitorable = false
+priority = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_0u1r7")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
