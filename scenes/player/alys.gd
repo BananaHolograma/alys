@@ -6,7 +6,7 @@ class_name Alys extends CharacterBody2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var ledge_climb_detector: RayCast2D = $LedgeClimbDetector
 @onready var effects: Node2D = $Effects
-
+@onready var idle: Idle = $GodotEssentialsFiniteStateMachine/Ground/Idle
 
 
 var is_left_direction: bool = false
@@ -48,4 +48,5 @@ func on_animation_player_finished(name: String):
 	if name == "death":
 		global_position = get_tree().get_first_node_in_group("respawn").global_position
 		animated_sprite_2d.modulate.a = 1.0
+		godot_essentials_finite_state_machine.current_state = idle
 		godot_essentials_finite_state_machine.unlock_state_machine()
