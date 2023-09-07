@@ -25,7 +25,7 @@ func physics_update(delta):
 		state_finished.emit("Dash", {})
 		return
 		
-	if Input.is_action_pressed("climb") and godot_essentials_platformer_movement.can_wall_climb():
+	if Input.is_action_pressed("climb") and not previous_states.back() is WallClimb and godot_essentials_platformer_movement.can_wall_climb():
 		state_finished.emit("WallClimb", {})
 		return
 		

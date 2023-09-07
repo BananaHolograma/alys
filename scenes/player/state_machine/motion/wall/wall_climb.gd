@@ -1,5 +1,7 @@
 class_name WallClimb extends Wall
 
+@onready var ledge_climb_detector: RayCast2D = $"../../../LedgeClimbDetector"
+
 
 func _ready():
 	super._ready()
@@ -9,9 +11,11 @@ func _ready():
 func _enter():
 	godot_essentials_platformer_movement.decelerate(0.0, true).is_wall_climbing = true
 	animated_sprite.play("climb")
+	ledge_climb_detector.enabled = true
 	
 	
 func _exit():
+	ledge_climb_detector.enabled = false
 	godot_essentials_platformer_movement.is_wall_climbing = false
 	animated_sprite.stop()
 
@@ -26,7 +30,13 @@ func physics_update(delta):
 			animated_sprite.play("climb")
 		else:
 			animated_sprite.stop()
+		
+		
+		if not ledge_climb_detector.is_colliding():
+			climb_on_ledge(delta)
+			return
 			
+	
 	if owner.is_on_floor():
 		state_finished.emit("Idle", {})
 		return
@@ -44,5 +54,12 @@ func physics_update(delta):
 		return
 
 
+func climb_on_ledge(delta):
+	godot_essentials_platformer_movement.decelerate_horizontally(delta).velocity.x =  sign(ledge_climb_detector.target_position.x) *  25
+	godot_essentials_platformer_movement.move()
+	state_finished.emit("Neutral", {})
+
 func on_fatigue_knockback(_direction: Vector2, _power: float):
 	state_finished.emit("Fall", {})
+
+

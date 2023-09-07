@@ -522,6 +522,10 @@ script = ExtResource("2_t67ha")
 position = Vector2(0, -7)
 shape = SubResource("RectangleShape2D_2r554")
 
+[node name="LedgeClimbDetector" type="RayCast2D" parent="."]
+position = Vector2(0, -10)
+target_position = Vector2(10, 0)
+
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 16

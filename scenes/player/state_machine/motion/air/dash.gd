@@ -54,6 +54,15 @@ func physics_update(delta):
 	if Input.is_action_just_pressed("jump") and (godot_essentials_platformer_movement.can_jump() or godot_essentials_platformer_movement.can_wall_jump()):
 		state_finished.emit("Jump", {})
 		return
+		
+			
+	if Input.is_action_pressed("climb") and godot_essentials_platformer_movement.can_wall_climb():
+		state_finished.emit("WallClimb", {})
+		return
+		
+	if owner.is_on_wall():
+		godot_essentials_platformer_movement.jump(godot_essentials_platformer_movement.jump_height / 2, true)
+		state_finished.emit("Neutral", {})
 
 
 func dash():

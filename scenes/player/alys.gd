@@ -4,7 +4,9 @@ class_name Alys extends CharacterBody2D
 @onready var godot_essentials_finite_state_machine: GodotEssentialsFiniteStateMachine = $GodotEssentialsFiniteStateMachine
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var ledge_climb_detector: RayCast2D = $LedgeClimbDetector
 @onready var effects: Node2D = $Effects
+
 
 
 var is_left_direction: bool = false
@@ -15,13 +17,20 @@ func _ready():
 
 func _process(delta):
 	_update_sprite_flip()
-
+	_update_ledge_climb_detector()
 
 func _update_sprite_flip():
 	is_left_direction = godot_essentials_platformer_movement_component.last_faced_direction.x < 0
 	
 	if animated_sprite_2d.flip_h != is_left_direction:
 		animated_sprite_2d.flip_h = is_left_direction
+
+
+func _update_ledge_climb_detector():
+	if is_left_direction and ledge_climb_detector.target_position.x > 0:
+		ledge_climb_detector.target_position *= -1
+	elif not is_left_direction and ledge_climb_detector.target_position.x < 0:
+		ledge_climb_detector.target_position *= -1
 
 
 func disable_effects():
