@@ -42,17 +42,17 @@ func physics_update(delta):
 	else:
 		if owner.is_on_floor():
 			if horizontal_direction.is_zero_approx():
-				state_finished.emit("Idle")
+				state_finished.emit("Idle", {})
 				return
 			else:
-				state_finished.emit("Run")
+				state_finished.emit("Run", {})
 				return
 		if godot_essentials_platformer_movement.is_falling():
-			state_finished.emit("Fall")
+			state_finished.emit("Fall", {})
 			return
 
 	if Input.is_action_just_pressed("jump") and (godot_essentials_platformer_movement.can_jump() or godot_essentials_platformer_movement.can_wall_jump()):
-		state_finished.emit("Jump")
+		state_finished.emit("Jump", {})
 		return
 
 
@@ -106,5 +106,5 @@ func on_finished_dash(_initial_position: Vector2, _final_position: Vector2):
 	godot_essentials_platformer_movement.gravity_enabled = true
 	
 	if not godot_essentials_platformer_movement.is_dashing:
-		state_finished.emit("Neutral")
+		state_finished.emit("Neutral", {})
 	

@@ -1,10 +1,10 @@
 class_name GodotEssentialsState extends Node
 
 signal state_entered
-signal state_finished(next_state)
+signal state_finished(next_state, params: Dictionary)
 
 var previous_states: Array[GodotEssentialsState] = []
-
+var params: Dictionary = {}
 
 func _enter() -> void:
 	pass

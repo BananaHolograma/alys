@@ -27,7 +27,7 @@ func _ready():
 		initialized_state.state_finished.connect(on_finished_state)
 	
 	if current_state is GodotEssentialsState:
-		change_state(current_state, true)
+		change_state(current_state, {},  true)
 	
 	unlock_state_machine()
 	
@@ -46,7 +46,7 @@ func process(delta):
 	current_state.update(delta)
 		
 
-func change_state(new_state: GodotEssentialsState, force: bool = false):
+func change_state(new_state: GodotEssentialsState,  params: Dictionary = {}, force: bool = false):
 	if not force and current_state_is(new_state):
 		return
 	
@@ -57,14 +57,15 @@ func change_state(new_state: GodotEssentialsState, force: bool = false):
 	state_changed.emit(current_state, new_state)
 	
 	current_state = new_state
+	current_state.params = params
 	enter_state(new_state)
 
 	
-func change_state_by_name(name: String, force: bool = false):
+func change_state_by_name(name: String, params: Dictionary = {}, force: bool = false):
 	var new_state = get_state(name)
 	
 	if new_state:
-		return change_state(new_state, force)
+		return change_state(new_state, params, force)
 		
 	push_error("The state {name} does not exists on this FiniteStateMachine".format({"name": name}))
 
@@ -144,12 +145,12 @@ func _add_state_to_dictionary(state: GodotEssentialsState):
 		states[state.name] = get_node(state.get_path())
 
 
-func on_finished_state(next_state):
+func on_finished_state(next_state, params):
 	if typeof(next_state) == TYPE_STRING:	
-		change_state_by_name(next_state)
+		change_state_by_name(next_state,  params, false)
 		
 	if next_state is GodotEssentialsState:
-		change_state(next_state)
+		change_state(next_state, params, false)
 
 
 func on_stack_pushed(_new_state: GodotEssentialsState, stack:Array[GodotEssentialsState]):

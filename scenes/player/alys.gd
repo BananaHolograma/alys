@@ -35,7 +35,6 @@ func _on_hurtbox_area_entered(area):
 	godot_essentials_finite_state_machine.lock_state_machine()
 	
 
-
 func on_animation_player_finished(name: String):
 	if name == "death":
 		global_position = get_tree().get_first_node_in_group("respawn").global_position

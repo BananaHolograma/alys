@@ -8,6 +8,7 @@ func _ready():
 	super._ready()
 	_create_neutral_state_timer()
 
+
 func _enter():
 	neutral_state_timer.start()
 
@@ -15,10 +16,19 @@ func _enter():
 func physics_update(delta):
 	super.physics_update(delta)
 	
-	if horizontal_direction.is_zero_approx():
+	if not horizontal_direction.is_zero_approx():
 		godot_essentials_platformer_movement.accelerate_horizontally(horizontal_direction, delta)
 	
 	godot_essentials_platformer_movement.move()
+	
+	if Input.is_action_just_pressed("dash") and godot_essentials_platformer_movement.can_dash(input_direction):
+		state_finished.emit("Dash", {})
+		return
+		
+	if Input.is_action_pressed("climb") and godot_essentials_platformer_movement.can_wall_climb():
+		state_finished.emit("WallClimb", {})
+		return
+		
 
 
 func _create_neutral_state_timer():
@@ -37,4 +47,4 @@ func _create_neutral_state_timer():
 
 
 func on_neutral_state_timer_timeout():
-	state_finished.emit("Fall")
+	state_finished.emit("Fall", {})

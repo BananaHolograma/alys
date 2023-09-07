@@ -24,7 +24,7 @@ func physics_update(delta):
 	
 	if horizontal_direction.is_zero_approx():
 		if godot_essentials_platformer_movement.velocity.x == 0:
-			state_finished.emit("Idle")
+			state_finished.emit("Idle", {})
 			return
 		else:
 			godot_essentials_platformer_movement.decelerate_horizontally(delta)
@@ -35,15 +35,15 @@ func physics_update(delta):
 	godot_essentials_platformer_movement.move()
 	
 	if Input.is_action_just_pressed("jump"):
-		state_finished.emit("Jump")
+		state_finished.emit("Jump", {})
 		return
 		
 	if Input.is_action_just_pressed("dash") and godot_essentials_platformer_movement.can_dash(input_direction):
-		state_finished.emit("Dash")
+		state_finished.emit("Dash", {})
 		return
 		
 	if godot_essentials_platformer_movement.is_falling():
-		state_finished.emit("Fall")
+		state_finished.emit("Fall", {})
 
 
 func emit_dust_particles(horizontal_direction: Vector2):

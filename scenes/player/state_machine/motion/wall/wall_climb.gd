@@ -28,21 +28,21 @@ func physics_update(delta):
 			animated_sprite.stop()
 			
 	if owner.is_on_floor():
-		state_finished.emit("Idle")
+		state_finished.emit("Idle", {})
 		return
 		
 	if Input.is_action_just_pressed("jump") and godot_essentials_platformer_movement.can_wall_jump():
-		state_finished.emit("Jump")
+		state_finished.emit("Jump", {})
 		return
 		
 	if Input.is_action_just_pressed("dash") and godot_essentials_platformer_movement.can_dash(input_direction):
-		state_finished.emit("Dash")
+		state_finished.emit("Dash", {})
 		return
 
 	if Input.is_action_just_released("climb"):
-		state_finished.emit("Fall")
+		state_finished.emit("Fall", {})
 		return
 
 
 func on_fatigue_knockback(_direction: Vector2, _power: float):
-	state_finished.emit("Fall")
+	state_finished.emit("Fall", {})
