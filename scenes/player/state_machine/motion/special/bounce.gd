@@ -12,6 +12,10 @@ func _enter():
 	animated_sprite.play("jump")
 
 
+func _exit():
+	animated_sprite.stop()
+	
+	
 func physics_update(delta):
 	super.physics_update(delta)
 	

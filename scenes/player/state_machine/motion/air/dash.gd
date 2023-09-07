@@ -61,7 +61,7 @@ func physics_update(delta):
 		return
 		
 	if owner.is_on_wall():
-		godot_essentials_platformer_movement.jump(godot_essentials_platformer_movement.jump_height / 2, true)
+		godot_essentials_platformer_movement.jump(godot_essentials_platformer_movement.jump_height / 3, true)
 		state_finished.emit("Neutral", {})
 
 

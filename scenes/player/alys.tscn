@@ -506,6 +506,7 @@ _data = {
 }
 
 [node name="Alys" type="CharacterBody2D" groups=["player"]]
+z_index = 20
 collision_layer = 32
 script = ExtResource("1_kghtd")
 metadata/_edit_vertical_guides_ = [-203.0]

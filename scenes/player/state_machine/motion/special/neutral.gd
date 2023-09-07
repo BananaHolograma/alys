@@ -12,6 +12,8 @@ func _ready():
 func _enter():
 	neutral_state_timer.start()
 
+func _exit():
+	neutral_state_timer.stop()
 
 func physics_update(delta):
 	super.physics_update(delta)
