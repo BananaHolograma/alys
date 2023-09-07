@@ -1,9 +1,11 @@
 class_name Alys extends CharacterBody2D
 
 @onready var godot_essentials_platformer_movement_component: GodotEssentialsPlatformerMovementComponent = $GodotEssentialsPlatformerMovementComponent
+@onready var godot_essentials_finite_state_machine: GodotEssentialsFiniteStateMachine = $GodotEssentialsFiniteStateMachine
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var effects: Node2D = $Effects
+
 
 var is_left_direction: bool = false
 
@@ -29,17 +31,13 @@ func disable_effects():
 
 
 func _on_hurtbox_area_entered(area):
-	set_process_input(false)
-	set_process_unhandled_input(false)
-	set_physics_process(false)
 	animation_player.play("death")
+	godot_essentials_finite_state_machine.lock_state_machine()
+	
 
 
 func on_animation_player_finished(name: String):
 	if name == "death":
-		set_process_input(false)
-		set_process_unhandled_input(false)
-		set_physics_process(false)
-		
 		global_position = get_tree().get_first_node_in_group("respawn").global_position
 		animated_sprite_2d.modulate.a = 1.0
+		godot_essentials_finite_state_machine.unlock_state_machine()

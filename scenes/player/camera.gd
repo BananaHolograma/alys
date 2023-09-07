@@ -20,6 +20,8 @@ func _physics_process(delta):
 func _update_screen(new_screen: Vector2):
 	current_screen = new_screen
 	global_position = current_screen * SCREEN_SIZE + SCREEN_SIZE * 0.5
+	print("global position ", current_screen)
+
 	
 	PLAYER.get_node("GodotEssentialsPlatformerMovementComponent").reset_dash_queue()
 
