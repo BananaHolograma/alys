@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://ceu7ayosarjew"]
+
+[ext_resource type="Texture2D" uid="uid://dch3magr7g4l2" path="res://assets/environment/SprSpike.png" id="1_r15qc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_50mfm"]
+size = Vector2(5, 3)
+
+[node name="Spike" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -4)
+texture = ExtResource("1_r15qc")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape" type="CollisionShape2D" parent="Hitbox"]
+visible = false
+position = Vector2(0.5, -1.5)
+shape = SubResource("RectangleShape2D_50mfm")
+debug_color = Color(0.909804, 0.286275, 0.345098, 0.419608)
